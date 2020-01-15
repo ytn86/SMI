@@ -20,7 +20,7 @@ __kernel void app(__global char *mem, const int N, SMI_Comm comm)
         double2 rcvd;
         SMI_Pop(&chan,&rcvd);
 
-        check &= (rcvd==(start+(double2)(i)));
+        check &= (all(rcvd==(start+(double2)(i))));
     }
     *mem=check;
 
@@ -38,7 +38,7 @@ __kernel void app_1(__global char *mem, const int N,SMI_Comm comm)
         double2 rcvd;
         SMI_Pop(&chan,&rcvd);
 
-        check &= (rcvd==(start+(double2)(i)));
+        check &= (all(rcvd==(start+(double2)(i))));
     }
     *mem=check;
 
