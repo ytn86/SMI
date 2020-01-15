@@ -29,12 +29,14 @@ typedef struct __attribute__((packed)) __attribute__((aligned(32))){
 #define SMI_INT_TYPE_SIZE       4
 #define SMI_FLOAT_TYPE_SIZE     4
 #define SMI_DOUBLE_TYPE_SIZE    8
+#define SMI_DOUBLE2_TYPE_SIZE    16
 
 #define SMI_CHAR_ELEM_PER_PCKT      28
 #define SMI_SHORT_ELEM_PER_PCKT     14
 #define SMI_INT_ELEM_PER_PCKT       7
 #define SMI_FLOAT_ELEM_PER_PCKT     7
 #define SMI_DOUBLE_ELEM_PER_PCKT    3
+#define SMI_DOUBLE2_ELEM_PER_PCKT   1
 
 /*
  * These two macro are used to manage network data.
@@ -96,6 +98,17 @@ typedef struct __attribute__((packed)) __attribute__((aligned(32))){
                 }\
             }\
             break;\
+        case SMI_DOUBLE2:\
+            _Pragma("unroll")\
+            for (int ee = 0; ee < SMI_DOUBLE2_ELEM_PER_PCKT; ee++) {\
+                if (ee == CHAN->packet_element_id) {\
+                     _Pragma("unroll")\
+                    for (int jj = 0; jj < SMI_DOUBLE2_TYPE_SIZE; jj++) {\
+                        smi_macro_data_snd[(ee * SMI_DOUBLE2_TYPE_SIZE) + jj] = SRC[jj];\
+                    }\
+                }\
+            }\
+            break;\
     }\
 }
 
@@ -148,6 +161,17 @@ typedef struct __attribute__((packed)) __attribute__((aligned(32))){
                     _Pragma("unroll")\
                     for (int jj = 0; jj < SMI_DOUBLE_TYPE_SIZE; jj++) { \
                         ((char *)DST)[jj] = smi_macro_data_rcv[(ee * SMI_DOUBLE_TYPE_SIZE) + jj]; \
+                    } \
+                } \
+            } \
+            break; \
+        case SMI_DOUBLE2: \
+            _Pragma("unroll")\
+            for (int ee = 0; ee < SMI_DOUBLE2_ELEM_PER_PCKT; ee++) { \
+                if (ee == CHAN->packet_element_id_rcv) { \
+                    _Pragma("unroll")\
+                    for (int jj = 0; jj < SMI_DOUBLE2_TYPE_SIZE; jj++) { \
+                        ((char *)DST)[jj] = smi_macro_data_rcv[(ee * SMI_DOUBLE2_TYPE_SIZE) + jj]; \
                     } \
                 } \
             } \
