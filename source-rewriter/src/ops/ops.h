@@ -13,7 +13,8 @@ enum class DataType {
     Short,
     Int,
     Float,
-    Double
+    Double,
+    Double2
 };
 
 class OperationMetadata

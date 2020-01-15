@@ -15,7 +15,8 @@ DATA_TYPE_SIZE = {
     "short":    2,
     "int":      4,
     "float":    4,
-    "double":   8
+    "double":   8,
+    "double2":   16
 }
 
 PACKET_PAYLOAD_SIZE = 28

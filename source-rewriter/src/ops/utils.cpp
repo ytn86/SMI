@@ -56,6 +56,7 @@ std::string formatDataType(DataType dataType)
         case DataType::Int: return "int";
         case DataType::Float: return "float";
         case DataType::Double: return "double";
+	    case DataType::Double2: return "double2";
     }
 
     assert(false);
@@ -78,8 +79,9 @@ DataType extractDataType(CallExpr* expr, int argumentIndex)
         case 1: return DataType::Int;
         case 2: return DataType::Float;
         case 3: return DataType::Double;
-        case 4: return DataType::Char;
-        case 5: return DataType::Short;
+        case 4: return DataType::Double2;
+        case 5: return DataType::Char;
+        case 6: return DataType::Short;
         default:
             assert(false);
     }

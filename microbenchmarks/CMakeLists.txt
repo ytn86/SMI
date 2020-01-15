@@ -21,5 +21,7 @@ if(PythonInterp_FOUND)
     #Eager evaluation
     smi_target(bandwidth_eager "${CMAKE_CURRENT_SOURCE_DIR}/kernels/bandwidth.json" "${CMAKE_CURRENT_SOURCE_DIR}/host/bandwidth_benchmark.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/kernels/bandwidth_0.cl;${CMAKE_CURRENT_SOURCE_DIR}/kernels/bandwidth_1.cl" 8 8 8 OFF)
 
+    smi_target(bandwidth_eager_vector "${CMAKE_CURRENT_SOURCE_DIR}/kernels/bandwidth.json" "${CMAKE_CURRENT_SOURCE_DIR}/host/bandwidth_benchmark.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/kernels/bandwidth_0_vector.cl;${CMAKE_CURRENT_SOURCE_DIR}/kernels/bandwidth_1_vector.cl" 8 8 8 OFF)
+
 endif()
 
